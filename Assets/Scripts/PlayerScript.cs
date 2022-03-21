@@ -67,10 +67,7 @@ public class PlayerScript : MonoBehaviour
                 transform.Rotate(new Vector3(0,-180,0));
             }
         }
-        if (isOnGround == false)
-        {
-            anim.SetInteger("State", 3);
-        }
+        
 
         if (Input.GetKey(KeyCode.A))
         {
@@ -143,21 +140,18 @@ public class PlayerScript : MonoBehaviour
             life.text = "HEALTH: " + lifeValue.ToString();
             Destroy(collision.collider.gameObject);
         }
-        if (collision.collider.tag == "Tiles" || collision.collider.tag == "Ground")
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.collider.tag == "Ground")
         {
-            
-        }   
-        else
-        {
-            anim.SetInteger("State", 3);
-        } 
-            if (collision.collider.tag == "Ground" && isOnGround)
-            {
             if (Input.GetKey(KeyCode.W))
             {
-            rd2d.AddForce(new Vector2(0, 3), ForceMode2D.Impulse);
+                rd2d.AddForce(new Vector2(0, 3), ForceMode2D.Impulse); //the 3 in this line of code is the player's "jumpforce," and you change that number to get different jump behaviors.  You can also create a public variable for it and then edit it in the inspector.
             }
-            }
+        
+        }
+            
     }
 }
-
